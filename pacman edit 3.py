@@ -351,17 +351,7 @@ for color in ["red", "pink", "cyan", "orange"]:
     ghost.up()
     ghost.goto( ghost_start_x, ghost_start_y )
     ghosts.append( {"turtle":ghost, "move": "left"})
-    """
-    global move
-    # create and put your ghost at the starting position
-    ghost = turtle.Turtle( )
-    ghost.color( "",color )
-    ghost.up()
-    ghost.goto( ghost_start_x, ghost_start_y )
-    ghost.hideturtle() # hide the default turtle  "arrow"
-    draw_ghost(ghost,"left")# make the initial movement dir. as e.g. "left"
-    ghosts.append( {"turtle":ghost, "move": "left"})
-    """
+
 ###############Assign 2 - cheat mode
 #-----------------------------
 protect_mode = False
