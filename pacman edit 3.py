@@ -339,6 +339,14 @@ turtle.listen()
 #------------------------------------------------------
 # Assign 2.1 - Create 4 ghosts of different colors
 for color in ["red", "pink", "cyan", "orange"]:
+    ghost = turtle.Turtle( )
+    ghost.shape("circle")
+    ghost.shapesize( ghost_size/20, ghost_size/20 ) # 1 unit=20
+    ghost.color(color)
+    ghost.up()
+    ghost.goto( ghost_start_x, ghost_start_y )
+    ghosts.append( {"turtle":ghost, "move": "left"})
+    """
     global move
     # create and put your ghost at the starting position
     ghost = turtle.Turtle( )
@@ -348,6 +356,7 @@ for color in ["red", "pink", "cyan", "orange"]:
     ghost.hideturtle() # hide the default turtle  "arrow"
     draw_ghost(ghost,"left")# make the initial movement dir. as e.g. "left"
     ghosts.append( {"turtle":ghost, "move": "left"})
+    """
 ###############Assign 2 - cheat mode
 #-----------------------------
 protect_mode = False
