@@ -2,12 +2,12 @@
 #STD:  20493253
 
 
+
 # Lab 7 - The Pacman Game
 #
 import turtle
 import math
 import random
-
 
 # Setup the turtle window
 turtle.setup(800, 700)
@@ -19,7 +19,6 @@ turtle.speed(0)
 turtle.up()
 turtle.hideturtle()
 turtle.tracer(False)
-
 
 # Define the game timing (30 frames per second)
 frame_time = 1000 // 30
@@ -62,25 +61,25 @@ next_move = ""      # This is the next movement
 #   G : starting position of ghosts
 maze = [
     #012345678901234567890 - total 21 columns
-    "+++++ +++++++++++++++", # 0
+    "+++++++++++++++++++++", # 0
     "+o.................o+", # 1
-    "+.++++++....+++++++.+", # 2
-    "+......+.......+....+", # 3
-    "+....+....o....+....+", # 4
-    "+..+...........+....+", # 5
-    "+.++++++....++++....+", # 6
-    "+...................+", # 7
-    "+..++....+++....++..+", # 8
-    "+.o.++..++.++..++.o.+", # 9
-    "+....++++...++++....+", # 10
+    "+.++++++++.++++++++.+", # 2
+    "+.+o.............o+.+", # 3
+    "+.+.+.++++.+++..+.+.+", # 4
+    "+.+.+.+  +....+.+.+.+", # 5
+    "+.+.+.+  +...+..+.+.+", # 6
+    "+.+.+.+  +..+...+.+.+", # 7
+    "+.+.+.++++.++++.+.+.+", # 8
+    "+.+...............+.+", # 9
+    "+.+.+++++++++++++.+.+", # 10
     "+...................+", # 11
-    "+++++.+++   +++.+++++", # 12
-    "     .+...G...+.     ", # 13
-    "+++++.+++++++++.+++++", # 14
+    "+++++.+.++ ++.+.+++++", # 12
+    "     .+.+ G +.+.     ", # 13
+    "+++++.+.+++++.+.+++++", # 14
     "+.........P.........+", # 15
     "+.+++.+++++++++.+++.+", # 16
     "+o....+       +....o+", # 17
-    "+++++ +       +++++++"  # 18 - total 19 rows
+    "+++++++       +++++++"  # 18 - total 19 rows
 ]
 
 
@@ -125,174 +124,8 @@ for col in range(maze_columns):
         # - Initialize the position of ghost
             ghost_start_x = tile_x
             ghost_start_y = tile_y
-#————————————————————————————————————————————————
-# Assign 2.1 - Drawing the ghost
-#####################################
-def draw_ghost(ghost, move):
-    
-    ghost.clear()
-    # clear the ghost prev. image, redraw in the following
-    #get the ghost position   by using ghost.xcor()  ghost.ycor()
-    ghost_x = ghost.xcor()
-    ghost_y = ghost.ycor()
-    # Draw the ghost body
-    ghost.hideturtle()
-    ghost.color("",color)
-    ghost.begin_fill()
-    ghost.left(90)
-    ghost.circle(15, 180)
-    ghost.forward(15)
-    ghost.up()
-    ghost.left(90)
-    ghost.forward(3.75)
-    ghost.down()
-    ghost.color(color)
-    ghost.dot(7.5)
-    ghost.up()
-    ghost.forward(7.5)
-    ghost.down()
-    ghost.dot(7.5)
-    ghost.up()
-    ghost.forward(7.5)
-    ghost.down()
-    ghost.dot(7.5)
-    ghost.up()
-    ghost.forward(7.5)
-    ghost.down()
-    ghost.dot(7.5)
-    ghost.forward(3.75)
-    ghost.left(90)
-    ghost.forward(15)
-    ghost.end_fill()
-    # Draw the ghost eyes
-
-    # get the ghost moving direction from "move" (the 2nd param. in the function)
-    ghost_move = move
-            
-    # make the eyes "looking" towards the direction of movement
-    if ghost_move == "left":
-        ghost.up()
-        ghost.left(90)
-        ghost.forward(7.5)
-        ghost.color("white")
-        ghost.dot(7.5)
-        ghost.forward(3.75)
-        ghost.color("black")
-        ghost.dot(3.75)
-        ghost.forward(11.25)
-        ghost.color("white")
-        ghost.dot(7.5)
-        ghost.forward(3.75)
-        ghost.color("black")
-        ghost.dot(3.75)
-        ghost.left(180)
-    elif ghost_move == "right":
-        ghost.up()
-        ghost.left(90)
-        ghost.forward(7.5)
-        ghost.color("white")
-        ghost.dot(7.5)
-        ghost.backward(3.75)
-        ghost.color("black")
-        ghost.dot(3.75)
-        ghost.forward(15)
-        ghost.color("white")
-        ghost.dot(7.5)
-        ghost.backward(3.75)
-        ghost.color("black")
-        ghost.dot(3.75)
-        ghost.left(180)
-    elif ghost_move == "down":
-        ghost.up()
-        ghost.left(90)
-        ghost.forward(7.5)
-        ghost.color("white")
-        ghost.dot(7.5)
-        ghost.left(90)
-        ghost.forward(3.75)
-        ghost.color("black")
-        ghost.dot(3.75)
-        ghost.backward(3.75)
-        ghost.right(90)
-        ghost.forward(15)
-        ghost.color("white")
-        ghost.dot(7.5)
-        ghost.left(90)
-        ghost.forward(3.75)
-        ghost.color("black")
-        ghost.dot(3.75)
-        ghost.backward(3.75)
-        ghost.right(90)
-        ghost.left(180)
-    else:
-        ghost.up()
-        ghost.left(90)
-        ghost.forward(7.5)
-        ghost.color("white")
-        ghost.dot(7.5)
-        ghost.right(90)
-        ghost.forward(3.75)
-        ghost.color("black")
-        ghost.dot(3.75)
-        ghost.backward(3.75)
-        ghost.left(90)
-        ghost.forward(15)
-        ghost.color("white")
-        ghost.dot(7.5)
-        ghost.right(90)
-        ghost.forward(3.75)
-        ghost.color("black")
-        ghost.dot(3.75)
-        ghost.backward(3.75)
-        ghost.left(90)
-        ghost.left(180)
         
-#---------------------------------------------
-# Assign 2.2 - Drawing the pacman
-#########################################
-pacman_mouth_open = 40  # max mouth open angle
-pacman_mouth_change = -8 # it can be either -8  or +8 
-def draw_pacman():
-    global pacman_mouth_open, pacman_mouth_change, mouth_angle,n, motion
- 
-    pacman.clear()
-    # set the pacman heading dir. (i.e. =current_move),
-    #so that pacman's mouth is facing that dir.
 
-    pacman_mouth_direction = current_move
-    
-    if pacman_mouth_direction == "right":
-        pacman.setheading(0)
-    elif pacman_mouth_direction == "left":
-        pacman.setheading(180)
-    elif pacman_mouth_direction == "down":
-        pacman.setheading(270)
-    elif pacman_mouth_direction == "up":
-        pacman.setheading(90)
-    else:
-        pacman.setheading(0)
-	# ...
-	# Draw the Pacman with mouth
-       
-
-    pacman.left(pacman_mouth_open)
-    pacman.begin_fill()
-    pacman.forward(15)
-    pacman.left(90)
-    pacman.circle(15,360 - 2*pacman_mouth_open)
-    pacman.left(90)
-    pacman.forward(15)
-    pacman.left(pacman_mouth_open)
-    pacman.end_fill()
-    # update the mouth movement angle for the next movement
-    if pacman_mouth_open == 40:
-        pacman_mouth_change = -8
-    elif pacman_mouth_open == 0:
-        pacman_mouth_change = 8
-
-    pacman_mouth_open = pacman_mouth_open + pacman_mouth_change
-    
-    
 # Task 2.1 - Create the pacman turtle
 #
 # - Use turtle.Turtle() to make your pacman
@@ -300,11 +133,12 @@ def draw_pacman():
 # - Make a yellow turtle circle shape as your pacman
 # - Put your pacman at the starting position
 pacman = turtle.Turtle( )
+pacman.shape("circle")
+pacman.shapesize( pacman_size/20, pacman_size/20 ) # 1 unit=20
 pacman.color( "yellow" )
 pacman.up()
 pacman.goto( pacman_x, pacman_y )
-pacman.hideturtle()
-draw_pacman()
+
 # Task 2.2 - Handle the movement keys
 #
 # - Complete the down, left and right movement keys for the pacman
@@ -335,65 +169,15 @@ turtle.onkeypress(move_left, "Left")
 # Need to use listen for key events to work
 turtle.listen()
 
-
+# create and put your ghost at the starting position
+ghost = turtle.Turtle( )
+ghost.shape("circle")
+ghost.shapesize( ghost_size/20, ghost_size/20 ) # 1 unit=20
+ghost.color( "red" )
+ghost.up()
+ghost.goto( ghost_start_x, ghost_start_y )
+ghosts.append( {"turtle":ghost, "move": "left"})
 #------------------------------------------------------
-# Assign 2.1 - Create 4 ghosts of different colors
-for color in ["red", "pink", "cyan", "orange"]:
-    global move
-    # create and put your ghost at the starting position
-    ghost = turtle.Turtle( )
-    ghost.color( "",color )
-    ghost.up()
-    ghost.goto( ghost_start_x, ghost_start_y )
-    ghost.hideturtle() # hide the default turtle  "arrow"
-    draw_ghost(ghost,"left")# make the initial movement dir. as e.g. "left"
-    ghosts.append( {"turtle":ghost, "move": "left"})
-###############Assign 2 - cheat mode
-#-----------------------------
-protect_mode = False
-
-def protect_mode():
-    global protect_mode
-    if protect_mode == False:
-        protect_mode = True
-        pacman.color("yellow")
-        
-    else:
-        pacman.color("green")
-        protect_mode = False
-
-     
-
-
-turtle.onkeypress(protect_mode,"c")
-turtle.listen()
-
-
-
-
-
-
-
-
-###### Assign 2 - score
-#---------------------------
-score = 0
-score_turtle = turtle.Turtle()
-score_turtle.hideturtle()
-score_turtle.color ("white")
-score_turtle.up()
-score_turtle.goto(-310,300)
-turtle.down()
-score_turtle.write("Score = "+ str(score), align="left", \
-                   font=("Arial", 20, "normal"))
-turtle.up()
-
-
-
-
-
-
-
 # This is the game main loop, which is mainly used to:
 #
 # - Determine the movement of pacman
@@ -419,7 +203,6 @@ def game_loop():
     #
     # - Complete the down, left and right moves
     #   (the up move has been given to you)
-   
     if current_move == "up":
         new_x = pacman_x
         new_y = pacman_y + pacman_speed
@@ -484,16 +267,6 @@ def game_loop():
             elif dx < (pacman_size + food_size) / 2 and \
                dy < (pacman_size + food_size) / 2 and \
                tile == ".":
-                global score
-                score= score + 1
-                score_turtle.clear()
-                score_turtle.down()
-                score_turtle.write("Score = "+ str(score), align="left",\
-                                   font=("Arial", 20, "normal"))
-                score_turtle.up()
-
-
-
             # remove the food from the window and the maze list
                 turtle.goto( tile_x, tile_y )
                 turtle.color("black")
@@ -506,12 +279,6 @@ def game_loop():
             elif dx < (pacman_size + food_size) / 2 and \
                dy < (pacman_size + food_size) / 2 and \
                tile == "o":
-                score= score + 5
-                score_turtle.clear()
-                score_turtle.down()
-                score_turtle.write("Score = "+ str(score), align="left", \
-                                   font=("Arial", 20, "normal"))
-                score_turtle.up()
             # remove the food from the window and the maze list
                 turtle.goto( tile_x, tile_y )
                 turtle.color("black")
@@ -520,23 +287,19 @@ def game_loop():
                 maze[j] = maze[j][:i] + " " + maze[j][i+1:]
                 food_count -= 1
                 
-        # Task 2.3 - Move the pacman
-        #
-        # - Move pacman to the new position
-        # - Update pacman_x and pacman_y
-        
+    # Task 2.3 - Move the pacman
+    #
+    # - Move pacman to the new position
+    # - Update pacman_x and pacman_y
     pacman.goto(new_x, new_y)
     pacman_x = new_x
     pacman_y = new_y
-    draw_pacman()
-    turtle.update()
-#--------------------------Above is pacman code--------------------------------
+#-------------------------Above is pacman code--------------------------------
     ## lab 8 2.1 move the ghost
     #------------Add inj the ghost code--------------
     for ghost_item in ghosts:
         ghost = ghost_item["turtle"]
         ghost_move = ghost_item["move"]
-
         ghost_x = ghost.xcor()
         ghost_y = ghost.ycor()
 
@@ -590,13 +353,9 @@ def game_loop():
             ghost_x = ghost_x
             ghost_y = ghost_y
 
-            # current ghost position 
+        # current ghost position 
         ghost.goto( ghost_x, ghost_y )
-    # assign 2 draw the ghost
-        #draw_ghost(ghost, ghost_move)
-
-
-
+        
 # Exited the above FOR LOOP, after process the movement of all ghosts
 # ---------------- the above code is the movement of one ghost------------------
     # the for loop above will process one ghost at a time
@@ -611,15 +370,12 @@ def game_loop():
         dy = math.fabs( pacman_y - ghost_y )
     # Game over massage
         if dx < (pacman_size + tile_size) / 2 and \
-           dy < (pacman_size + tile_size) / 2 and protect_mode != False:
+           dy < (pacman_size + tile_size) / 2:
             turtle.goto(0,-20)
             turtle.color("White")
             turtle.write("Game Over:[", font=("Arial", 50, "bold"),
                          align="center")
             return   # exit the game
-
-            
-
     #--you win end game proc.------------------
     #eat all of the food, you win  message
     #global food count; 
@@ -628,11 +384,11 @@ def game_loop():
             turtle.color("white")
             turtle.write("You win :0", font=("Arial", 50, "bold"),
                          align="center")
+           
             return   # exit the game
-        
     # Update the window content
     turtle.update()
-    
+
     # Keep on running the game loop
     turtle.ontimer(game_loop, frame_time)
 #-------------------------------------------------------------------------------------------
@@ -642,8 +398,11 @@ game_loop()
 turtle.done()
 
 """ def draw_ghost (,)
-need to have two eyes, eyebow looking at the moving direction"""
+need to have two eyes, eyebow looking at the moving direction
 
-
+def toggle_protect():
+global protect_mode
+-set the "protect_mode"
+-set code for the pacman"""
 
 
