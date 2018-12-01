@@ -129,7 +129,8 @@ for col in range(maze_columns):
 # Assign 2.1 - Drawing the ghost
 #####################################
 def draw_ghost(ghost, move):
-    
+    #Save the original color of each ghost, i.e. cyan, blue, orange, pink
+    ghostColor1,ghostColor2 = ghost.color()
     ghost.clear()
     # clear the ghost prev. image, redraw in the following
     #get the ghost position   by using ghost.xcor()  ghost.ycor()
@@ -137,7 +138,8 @@ def draw_ghost(ghost, move):
     ghost_y = ghost.ycor()
     # Draw the ghost body
     ghost.hideturtle()
-    ghost.color("",color)
+    #draw ghosts with their original colors i.e. cyan, blue, orange, pink
+    ghost.color(ghostColor1)
     ghost.begin_fill()
     ghost.left(90)
     ghost.circle(15, 180)
@@ -146,7 +148,7 @@ def draw_ghost(ghost, move):
     ghost.left(90)
     ghost.forward(3.75)
     ghost.down()
-    ghost.color(color)
+    ghost.color(ghostColor1)
     ghost.dot(7.5)
     ghost.up()
     ghost.forward(7.5)
@@ -246,6 +248,8 @@ def draw_ghost(ghost, move):
         ghost.backward(3.75)
         ghost.left(90)
         ghost.left(180)
+    #After drawing eyes, restore the original ghost color to the ghost turtle
+    ghost.color(ghostColor1,ghostColor1)
     ghost.goto(ghost_x,ghost_y)
         
 #---------------------------------------------
