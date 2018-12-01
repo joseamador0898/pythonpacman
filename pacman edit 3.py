@@ -246,6 +246,7 @@ def draw_ghost(ghost, move):
         ghost.backward(3.75)
         ghost.left(90)
         ghost.left(180)
+    ghost.goto(ghost_x,ghost_y)
         
 #---------------------------------------------
 # Assign 2.2 - Drawing the pacman
@@ -602,7 +603,7 @@ def game_loop():
             # current ghost position 
         ghost.goto( ghost_x, ghost_y )
     # assign 2 draw the ghost
-        #draw_ghost(ghost, ghost_move)
+        draw_ghost(ghost, ghost_move)
 
 
 
